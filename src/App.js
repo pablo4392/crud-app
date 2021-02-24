@@ -1,11 +1,9 @@
-import './App.css';
-import CreateTodo from './components/CreateTodo.js'
+import './App.css'
 import TodoContainer from './components/TodoContainer.js'
 
 function App() {
   return (
     <div className="App">
-      <CreateTodo />
       <TodoContainer />
     </div>
   );

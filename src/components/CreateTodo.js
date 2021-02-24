@@ -2,41 +2,15 @@ import {useForm} from 'react-hook-form'
 import {useEffect} from 'react'
 import './createTodo.css'
 
-const  CreateTodo = (
-    onCreateTask,
-    resetForm,
-    data = {
-        task: "",
-        student: "",
-        _id: null
-    }
-) => {
-    const {register, handleSubmit, reset, setValue} = useForm({
-        defaultValues: data
-    });
+const  CreateTodo = ({createTask}) => {
+    const {register, handleSubmit} = useForm();
 
-    // useEffect(() => {
-    //     if(resetForm){
-    //         reset({
-    //             task: "",
-    //             student: "",
-    //         })
-    //     }
-    // }, [resetForm, reset]);
-
-    useEffect(() => {
-        setValue("_id", data._id);
-        setValue("student", data.student);
-        setValue("task", data.task);
-    }, [data, setValue]);
-    
-    const onSubmit = (data) => {
-        // onCreateTask(data);
-        console.log(data)
+    const saveData = (data) => { //la data que nosotros guardemos en el formulario sera guardada aqui
+        createTask(data)
     }
 
     return(
-        <form className='create-task' onSubmit={handleSubmit(onSubmit)}>
+        <form className='create-task' onSubmit={handleSubmit(saveData)}> 
             <div>
                 <h3>Instructions</h3>
                 <p>Write a name and design a task to do, your task appear behind, you can delete or update</p>
