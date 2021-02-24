@@ -3,5 +3,38 @@
     padding: 1rem;
     border: solid;
     border-radius: 1rem;
-    width: 35rem;
+    width: 100vh;
+    background-color: #295939;
+    color: #fff;
+}
+
+.input-label {
+    font-size: 25px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.student-input {
+    margin-left: 1rem ;
+    width: 20rem;
+    height: 20px;
+    background-color: #9dab86;
+}
+
+.task-input {
+    margin-left: 1rem ;
+    margin-top: 0.7rem;
+    width: 20rem;
+    height: 20px;
+    background-color: #9dab86;
+}
+
+.submit-button {
+    margin-top: 0.6rem;
+    width: 5rem;
+    height: 2rem;
+    border: solid 2px;
+    border-radius: 1rem;
+    background-color: #00303f;
+    color: #fff
 }

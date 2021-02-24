@@ -4,20 +4,22 @@ import './todoItem.css'
 const TodoItem = ({
     student,
     task,
+    deleteTask,
+    id,
 }) => {
     const {register, handleRegister} = useForm();
 
     return(
         <div className='task-box'>
-            <p className='student'>Student: {student}</p>
+            <p className='student'>{student}</p>
             <p className='task'>Task: {task}</p>
             <div>
                 <button className='update-button'>Update</button>
-                <button className='delete-button'>Delete</button>
+                <button onClick={()=>deleteTask(id)} className='delete-button'>Delete</button>
             </div>
             <label className='checkbox'>
                 Task complete
-                <input type="checkbox" name="check" ref={register}/>
+                <input type="checkbox" name="check" />
             </label>
         </div>
     )

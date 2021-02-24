@@ -3,50 +3,67 @@ import {useEffect, useState} from 'react'
 import TodoItem from './TodoItem.js'
 
 const TodoContainer = () => {
-    const [toDo, setToDo] = useState([]);
+    const [task, setTask] = useState([]); //variable para traer todos los task 
+    const [idToDelete, setIdToDelete] = useState(null); //variable para conoverl el id que debemos eliminar
+    const [newTask, setNewTask] = useState(null);
+    const [resetForm, setResetForm] = useState(false);
 
+    //GET method
     useEffect(() => {
-        const promise = axios({
-            url:'https://todos-academlo.herokuapp.com/api/todos',
-            method: 'GET',
-        });
+        const promise = axios.get('https://todos-academlo.herokuapp.com/api/todos');
 
         promise.then((response) => {
-            console.log(response.data)
-            // setStudent(response.data.todos[0].student);
-            // setTask(response.data.todos[0].task);
-            setToDo(response.data.todos)
+            console.log(response.data)            
+            setTask(response.data.todos)
         })
     }, []);
 
-    const todoArray = toDo.map((value) => (
-        <TodoItem key={value._id} student={value.student} task= {value.task} />
-    ));
-
+    //POST method
     // useEffect( () => {
-    //     const promise = axios({
-    //         url:'https://todos-academlo.herokuapp.com/api/todo/:id',
-    //         method: 'POST'
-    //     });
-    // })
+    //     if (newTask) {
+    //         const promise = axios({
+    //             url:'https://todos-academlo.herokuapp.com/api/todo',
+    //             data: newTask,
+    //             method: 'POST'
+    //         });
 
-    // useEffect( () => {
-    //     const promise = axios({
-    //         url:'https://todos-academlo.herokuapp.com/api/todo/:id',
-    //         method: 'DELETE'
-    //     });
-    // })
+    //         promise.then((response) => {
+    //             setTask((miEstate) => [response.data, ...miEstate])
+    //             setResetForm(true)
+    //         })
+    //     }
+    // }, [newTask])
 
-    // useEffect( () => {
-    //     const promise = axios({
-    //         url:'https://todos-academlo.herokuapp.com/api/todo',
-    //         method: 'PUT'
-    //     });
-    // })
+    //DELETE method
+    useEffect( () => {
+        if(idToDelete) { //por default "idToDelete" tiene un valor nulo, si cambia su valor se ejecutara el metodo
+            const promise = axios.delete(`https://todos-academlo.herokuapp.com/api/todo/${idToDelete}`);
+
+            promise.then(() => {
+                setTask((prevState) =>
+                //comparamos el estado que tiene actualmente "set task" que es la variable que trae a la pantalla todos los "task"
+                //y solo guardamos los "task que sean diferentes al id que queremos eliminar"
+                prevState.filter((value) => value._id !== idToDelete)
+                )
+            })
+        }
+    }, [idToDelete])
+
+    const handleDelete = (id) => {
+        setIdToDelete(id);
+    }
 
     return (
         <div>
-            {toDo.length >0 && todoArray}
+            {task.map((value) => (
+                <TodoItem 
+                    key={value._id} 
+                    id={value._id}
+                    student={value.student} 
+                    task={value.task}
+                    deleteTask={handleDelete}
+                />))
+            }
         </div>
     )
 }

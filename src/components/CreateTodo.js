@@ -37,17 +37,21 @@ const  CreateTodo = (
 
     return(
         <form className='create-task' onSubmit={handleSubmit(onSubmit)}>
-            <label>
+            <div>
+                <h3>Instructions</h3>
+                <p>Write a name and design a task to do, your task appear behind, you can delete or update</p>
+            </div>
+            <label className='input-label'>
                 Student:
-                <input name='student' ref={register} />
+                <input name='student' className='student-input' ref={register} />
             </label>
             <br />
-            <label>
+            <label className='input-label'>
                 Task:
-                <input name='task' ref={register}/>
+                <input name='task' className='task-input' ref={register}/>
             </label>
             <br />
-            <button>Submit</button>
+            <button className='submit-button'>Submit</button>
         </form>
     )
 }
