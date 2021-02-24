@@ -1,0 +1,51 @@
+.task-box {
+    margin: 1rem;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 320px;
+    border: solid 7px #a7c5eb;
+    border-radius: 0.5rem;
+    background-color: #28527a;
+    color: #fff;
+}
+
+.student {
+    padding: 0;
+    margin: 0;
+    font-size: 28px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+}
+
+.task {
+    padding: 0;
+    margin: 3px;
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.update-button {
+    margin: 3px;
+    border: solid 2px #a1cae2;
+    border-radius: 5px;
+    height: 2rem;
+    width: 4rem;
+    color: #fff;
+    background-color: #161d6f;
+}
+
+.delete-button {
+    margin: 3px;
+    border: solid 2px #91091e;
+    border-radius: 5px;
+    height: 2rem;
+    width: 4rem;
+    color: #fff;
+    background-color: #6b011f;
+}
+
+.checkbox {
+    font-size: 15px;
+}
