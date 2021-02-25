@@ -1,20 +1,17 @@
-import {useForm} from 'react-hook-form'
 import './todoItem.css'
 
-const TodoItem = ({
-    student,
-    task,
-    deleteTask,
-    id,
-}) => {
-    const {register, handleRegister} = useForm();
+const TodoItem = ({student, task, deleteTask, updateTask, id}) => {
 
     return(
         <div className='task-box'>
             <p className='student'>{student}</p>
             <p className='task'>Task: {task}</p>
             <div>
-                <button className='update-button'>Update</button>
+                <button onClick={()=>updateTask({
+                                        student: student,
+                                        task: task,
+                                        _id: id
+                                   })} className='update-button'>Update</button>
                 <button onClick={()=>deleteTask(id)} className='delete-button'>Delete</button>
             </div>
             <label className='checkbox'>

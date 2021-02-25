@@ -1,3 +1,10 @@
+.principal-title {
+    margin: 0;
+    padding: 0;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 55px;
+}
+
 .create-task {
     margin-top: 2rem;
     padding: 1rem;

@@ -6,15 +6,17 @@ import CreateTodo from './CreateTodo.js'
 
 const TodoContainer = () => {
     const [tasks, setTasks] = useState([]); //variable para traer todos los task 
-    const [idToDelete, setIdToDelete] = useState(null); //variable para conoverl el id que debemos eliminar
-    const [newTask, setNewTask] = useState(null);
+    const [newTask, setNewTask] = useState(null); //variable para crear una nueva tarea
+    const [idToDelete, setIdToDelete] = useState(null); //variable para conocer el id que debemos eliminar
+    const [taskToUpdate, setTaskToUpdate] = useState(null);
+    const [updateTaskDone, setUpdateTaskDone] = useState(null);
 
     //GET method
     useEffect(() => {
         const promise = axios.get('https://todos-academlo.herokuapp.com/api/todos');
 
-        promise.then((response) => {         
-            setTasks(response.data.todos)
+        promise.then((response) => {    
+            setTasks(response.data.todos);
         });
     }, []);
 
@@ -29,6 +31,31 @@ const TodoContainer = () => {
             })
         };
     }, [newTask]);
+
+    //PUT method
+    useEffect(() => {
+        if(updateTaskDone) {
+            const promise = axios.put(
+                `https://todos-academlo.herokuapp.com/api/todo/${updateTaskDone._id}`,
+                updateTaskDone
+            );
+
+            promise.then((response) => {
+                setTasks((prevState) => {
+                    prevState.map((task) => {
+                        if(task._id !== response.data._id) {
+                            return task
+                        }
+
+                        return {
+                            ...response.data,
+                        };
+                    })
+                });
+            });       
+            setTaskToUpdate(null)
+        }
+    }, [updateTaskDone])
 
     //DELETE method
     useEffect( () => {
@@ -50,20 +77,37 @@ const TodoContainer = () => {
         };
     }, [idToDelete]);
 
+    const handleCreateTask = (data) => { //funcion para llamar nueva tarea
+        setNewTask(data);
+    };
+
+    const handleUpdateTask = (task) => {
+        setTaskToUpdate(task);
+    }
+
+    const handleUpdateTaskDone = (task) => {
+        setUpdateTaskDone(task)
+    }
+
     const handleDelete = (id) => { //funcion para llamar a eliminar
         setIdToDelete(id);
     };
 
-    const handleCreateTask = (data) => {
-        console.log(data)
-        setNewTask(data);
-    };
-
     return (
         <div className='container'>
-            <CreateTodo
-                createTask={handleCreateTask}
-            />
+            {taskToUpdate ? ( 
+                <CreateTodo
+                    createTask={handleUpdateTaskDone}
+                    data={taskToUpdate}
+                    buttonText='Update'
+                />
+            ) : (
+                <CreateTodo
+                    createTask={handleCreateTask}
+                    buttonText='Create'
+                />
+            )
+            }
 
             {tasks.map((value) => (
                 <TodoItem 
@@ -72,6 +116,7 @@ const TodoContainer = () => {
                     student={value.student} 
                     task={value.task}
                     deleteTask={handleDelete}
+                    updateTask={handleUpdateTask}
                 />))
             }
         </div>
