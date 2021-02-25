@@ -1,6 +1,12 @@
+import {useForm} from 'react-hook-form'
 import './todoItem.css'
 
 const TodoItem = ({student, task, deleteTask, updateTask, id}) => {
+    const {register, handleSubmit} = useForm();
+
+    const asd = (check) => {
+        console.log(check)
+    }
 
     return(
         <div className='task-box'>
@@ -14,10 +20,12 @@ const TodoItem = ({student, task, deleteTask, updateTask, id}) => {
                                    })} className='update-button'>Update</button>
                 <button onClick={()=>deleteTask(id)} className='delete-button'>Delete</button>
             </div>
-            <label className='checkbox'>
-                Task complete
-                <input type="checkbox" name="check" />
-            </label>
+            <form>
+                <label className='checkbox'>
+                    Task complete
+                    <input type="checkbox" onChange={handleSubmit(asd)} name="isCompleted" ref={register} />
+                </label>
+            </form>
         </div>
     )
 }

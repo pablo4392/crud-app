@@ -10,7 +10,9 @@ const  CreateTodo = ({
         task: "",
         _id: null
     }}) => {
-    const {register, handleSubmit, reset, setValue} = useForm();
+    const {register, handleSubmit, reset, setValue} = useForm({
+        defaultValues: data,
+    });
 
     const saveData = (data) => { //la data que nosotros guardemos en el formulario sera guardada aqui
         createTask(data);

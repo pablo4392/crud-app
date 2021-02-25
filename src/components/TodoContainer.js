@@ -15,7 +15,8 @@ const TodoContainer = () => {
     useEffect(() => {
         const promise = axios.get('https://todos-academlo.herokuapp.com/api/todos');
 
-        promise.then((response) => {    
+        promise.then((response) => {  
+            console.log(response.data)  
             setTasks(response.data.todos);
         });
     }, []);
@@ -44,7 +45,7 @@ const TodoContainer = () => {
                 setTasks((prevState) => {
                     prevState.map((task) => {
                         if(task._id !== response.data._id) {
-                            return task
+                            return task;
                         }
 
                         return {
@@ -86,7 +87,8 @@ const TodoContainer = () => {
     }
 
     const handleUpdateTaskDone = (task) => {
-        setUpdateTaskDone(task)
+        console.log(task);
+        setUpdateTaskDone(task);
     }
 
     const handleDelete = (id) => { //funcion para llamar a eliminar
